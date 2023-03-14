@@ -49,7 +49,7 @@ const generateImageForBusiness = (
   new Promise(async (resolve, reject) => {
     try {
       const res = await openai.createImage({
-        prompt: `Logo for a business called '${businessName}'`,
+        prompt: `image for a fitness business called with the name "${businessName}"`,
       });
 
       resolve(res.data);
