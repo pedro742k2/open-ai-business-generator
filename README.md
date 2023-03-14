@@ -27,7 +27,7 @@ ORGANIZATION_ID = your-organization-id-goes-here
 ```
 Change from "fitness" to another business type of your choice;
 
-3. To generate a business logo, make an HTTP `GET`request on `http://localhost:3000/generate-business-image` with a JSON body like the following:
+3. To generate a business logo, make an HTTP `GET` request on `http://localhost:3000/generate-business-image` with a JSON body like the following:
 ```JSON
 {
 	"business_type": "fitness",
