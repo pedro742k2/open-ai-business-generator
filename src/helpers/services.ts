@@ -44,12 +44,13 @@ const getBusinessName = (
   });
 
 const generateImageForBusiness = (
+  businessType: string,
   businessName: string
 ): Promise<ImagesResponse> =>
   new Promise(async (resolve, reject) => {
     try {
       const res = await openai.createImage({
-        prompt: `image for a fitness business called with the name "${businessName}"`,
+        prompt: `image for a ${businessType} business called with the name "${businessName}"`,
       });
 
       resolve(res.data);

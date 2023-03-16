@@ -11,6 +11,9 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
+const reject = (res: Response, msg: string) =>
+  res.status(400).json({ success: false, msg });
+
 app.get("/generate-business-name", async (req: Request, res: Response) => {
   const { business_type } = req.body;
 
@@ -34,16 +37,25 @@ app.get("/generate-business-name", async (req: Request, res: Response) => {
 });
 
 app.get("/generate-business-image", async (req: Request, res: Response) => {
-  const { business_name } = req.body;
+  const { business_type, business_name } = req.body;
 
-  const business_name_formatted = business_name.trim();
+  const business_type_formatted = business_type?.trim();
+  const business_name_formatted = business_name?.trim();
+
+  if (!business_type_formatted)
+    return res
+      .status(400)
+      .json({ success: false, msg: "No business type provided." });
 
   if (!business_name_formatted)
     return res
       .status(400)
       .json({ success: false, msg: "No business name provided." });
 
-  const openaiData = await generateImageForBusiness(business_name_formatted);
+  const openaiData = await generateImageForBusiness(
+    business_type_formatted,
+    business_name_formatted
+  );
 
   const businessImageUrl = openaiData.data[0].url;
 
